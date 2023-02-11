@@ -11,14 +11,11 @@ public class Game : MonoBehaviour
     [SerializeField] private ResetButton _resetScreen;
     [SerializeField] private WinScreen _winScreen;
     [SerializeField] private Player _player;
-
-    private FirstPersonController _firstPersonController;
+    [SerializeField] private FirstPersonController _firstPersonController;
 
     private void Start()
     {
-        _firstPersonController = GetComponent<FirstPersonController>();
         _startScreen.Open();
-
         StopGame();
     }
 

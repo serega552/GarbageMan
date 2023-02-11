@@ -11,8 +11,14 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(_damage);
-            Destroy(gameObject);
+            DisableObject();
         }
-            Destroy(gameObject);
+            DisableObject();
+    }
+
+    private void DisableObject()
+    {
+        gameObject.SetActive(false);
+        gameObject.GetComponent<Rigidbody>().velocity= Vector3.zero;
     }
 }

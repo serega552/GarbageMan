@@ -5,17 +5,16 @@ using UnityEngine.AI;
 
 public class EnemyControls : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent _navMeshAgent;
-    private GameObject _playerTemplate;
-    private Player _player;
+    [SerializeField] private GameObject _playerTemplate;
+    [SerializeField] private Player _player;
+
+    private NavMeshAgent _navMeshAgent;
     private Enemy _enemy;
-    private float _timer;
-    private float _timerAudioClips;
+    private bool _isAtackCoroutineRunning = false;
+    private bool _isSoundCoroutineRunning = false;
 
     private void Start()
     {
-        _playerTemplate = GameObject.Find("FPSController");
-        _player = FindObjectOfType<Player>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _enemy = GetComponent<Enemy>();
     }
@@ -27,26 +26,47 @@ public class EnemyControls : MonoBehaviour
 
     private void FollowBihindPlayer()
     {
-        _timer += Time.deltaTime;
-        _timerAudioClips += Time.deltaTime;
-
         float distance = Vector3.Distance(_enemy.transform.position, _playerTemplate.transform.position);
 
         if (_playerTemplate != null && distance < _enemy.RangeFollow && distance > _navMeshAgent.stoppingDistance)
         {
             _navMeshAgent.destination = _playerTemplate.transform.position;
-            
-            if(_timerAudioClips > 10)
+
+            if (_isSoundCoroutineRunning == false)
             {
-                _enemy.AudioSourse.PlayOneShot(_enemy.FollowSound);
-                _timerAudioClips = 0;
+                StartCoroutine(Sound());
+                _isSoundCoroutineRunning = true;
             }
         }
-        if (distance <= 5f && _timer >= _enemy.TimeBetweenAtack)
+        else
         {
-            _player.TakeDamage(_enemy.Damage);
-            _timer = 0;
+            StopCoroutine(Sound());
+            _isSoundCoroutineRunning = false;
         }
+
+        if (distance <= 5f && _isAtackCoroutineRunning == false)
+        {
+            StartCoroutine(Attack());
+            _isAtackCoroutineRunning = true;
+        }
+        else if (distance > 5)
+        {
+            StopCoroutine(Attack());
+            _isAtackCoroutineRunning = false;
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        _player.TakeDamage(_enemy.Damage);
+        yield return new WaitForSeconds(5f);
+
+    }
+
+    private IEnumerator Sound()
+    {
+        _enemy.AudioSourse.PlayOneShot(_enemy.FollowSound);
+        yield return new WaitForSeconds(10f);
     }
 }
 

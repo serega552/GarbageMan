@@ -1,31 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AKM : Weapon
 {
+    [SerializeField] private ObjectPool _objectPool;
+
+    private int _currentCountBullet = 30;
+    private int _maxCountBullet = 30;
+
+    public event UnityAction<int> CountBullet;
+
+    private void Start()
+    {
+        _objectPool.Initialize(Bullet);
+    }
+
     public override void Shoot(Transform shootPoint)
     {
         Force = 500;
 
-        Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        
-        RaycastHit hit;
-        Vector3 targetPoint;
+        if (_currentCountBullet > 0)
+        {
+            _currentCountBullet--;
 
-        if (Physics.Raycast(ray, out hit))
-            targetPoint = hit.point;
+            CountBullet?.Invoke(_currentCountBullet);
+
+            Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            if (Physics.Raycast(ray, out hit))
+                targetPoint = hit.point;
+            else
+                targetPoint = ray.GetPoint(0);
+
+            SpawnBullet(shootPoint, targetPoint);
+        }
         else
-            targetPoint = ray.GetPoint(0);
+        {
+            _objectPool.ResetPool();
+            _currentCountBullet = _maxCountBullet;
+            
+        }
+    }
 
+    private void SpawnBullet(Transform shootPoint, Vector3 targetPoint)
+    {
         Vector3 directionBullet = targetPoint - shootPoint.position;
 
-        GameObject currectBullet = Instantiate(Bullet, shootPoint.position,Quaternion.identity);
+        if (_objectPool.TryGetObject(out GameObject bullet))
+        {
+            bullet.transform.position = shootPoint.position;
+            bullet.transform.forward = directionBullet.normalized;
 
-        AudioSourseWeapon.PlayOneShot(ShotClip);
-
-        currectBullet.transform.forward = directionBullet.normalized;
-
-        currectBullet.GetComponent<Rigidbody>().AddForce(directionBullet.normalized * Force, ForceMode.Impulse);
+            bullet.SetActive(true);
+         
+            bullet.GetComponent<Rigidbody>().AddForce(directionBullet.normalized * Force, ForceMode.Impulse);
+            AudioSourseWeapon.PlayOneShot(ShotClip);
+        }
     }
 }
