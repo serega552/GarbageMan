@@ -11,18 +11,19 @@ public class Game : MonoBehaviour
     [SerializeField] private ResetButton _resetScreen;
     [SerializeField] private WinScreen _winScreen;
     [SerializeField] private Player _player;
+    [SerializeField] private Pause _pause;
     [SerializeField] private FirstPersonController _firstPersonController;
 
     private void Start()
     {
         _startScreen.Open();
-        StopGame();
+        Stop();
     }
 
     private void OnEnable()
     {
-        _player.PauseGame += PauseGame;
-        _player.UnPauseGame += UnPauseGame;
+        _pause.PauseGame += Pause;
+        _pause.UnPauseGame += UnPause;
         _startScreen.PlayButtonClick += OnPlayButtonClick;
         _resetScreen.RestartButtonClick += OnRestartButtonClick;
         _player.GameOver += OnGameOver;
@@ -31,8 +32,8 @@ public class Game : MonoBehaviour
 
     private void OnDisable()
     {
-        _player.PauseGame -= PauseGame;
-        _player.UnPauseGame -= UnPauseGame;
+        _pause.PauseGame -= Pause;
+        _pause.UnPauseGame -= UnPause;
         _startScreen.PlayButtonClick -= OnPlayButtonClick;
         _resetScreen.RestartButtonClick -= OnRestartButtonClick;
         _player.GameOver -= OnGameOver;
@@ -55,34 +56,34 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        ReturnGame();
+        Return();
     }
 
     private void OnGameOver()
     {
         _resetScreen.Open();
-        StopGame();
+        Stop();
     }
 
     private void OnGameWin()
     {
         _winScreen.Open();
-        StopGame();
+        Stop();
     }
 
-    public void PauseGame()
+    public void Pause()
     {
         _resetScreen.Open();
-        StopGame();
+        Stop();
     }
 
-    public void UnPauseGame()
+    public void UnPause()
     {
         _resetScreen.Close();
-         ReturnGame();
+         Return();
     }
 
-    private void StopGame()
+    private void Stop()
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
@@ -91,7 +92,7 @@ public class Game : MonoBehaviour
         _firstPersonController.enabled = false;
     }
 
-    private void ReturnGame()
+    private void Return()
     {
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;

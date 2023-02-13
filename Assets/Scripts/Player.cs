@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private AudioClip _TakeDamageSound;
@@ -13,13 +14,10 @@ public class Player : MonoBehaviour
     private float _heath = 100f;
     private float _currentHealth;
     private int _bin;
-    private bool _isPause = false;
 
     public event UnityAction<float, float> HealthChanged;
     public event UnityAction<int> ScoreChanged;
     public event UnityAction GameOver;
-    public event UnityAction PauseGame;
-    public event UnityAction UnPauseGame;
     public event UnityAction Win;
 
     private void Start()
@@ -34,17 +32,6 @@ public class Player : MonoBehaviour
         {
             _weapon.Shoot(_shootPoint);
         }
-
-        if (Input.GetButtonDown("Pause") && _isPause)
-        {
-            PauseGame?.Invoke();
-            _isPause= false;
-        }
-        else if(Input.GetButtonDown("Pause") && _isPause == false)
-        {
-            UnPauseGame?.Invoke();
-            _isPause = true;
-        } 
     }
 
     public void TakeDamage(float damage)

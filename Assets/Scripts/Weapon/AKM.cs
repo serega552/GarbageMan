@@ -8,7 +8,7 @@ public class AKM : Weapon
     private int _currentCountBullet = 30;
     private int _maxCountBullet = 30;
 
-    public event UnityAction<int> CountBullet;
+    public event UnityAction<int> BulletChanged;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class AKM : Weapon
         {
             _currentCountBullet--;
 
-            CountBullet?.Invoke(_currentCountBullet);
+            BulletChanged?.Invoke(_currentCountBullet);
 
             Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
@@ -39,7 +39,7 @@ public class AKM : Weapon
         }
         else
         {
-            _objectPool.ResetPool();
+            _objectPool.ResetObjects();
             _currentCountBullet = _maxCountBullet;
             
         }

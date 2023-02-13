@@ -32,7 +32,7 @@ public class ObjectPool : MonoBehaviour
         return result != null;
     }
 
-    public void ResetPool()
+    public void ResetObjects()
     {
         foreach(var item in _pool)
         {

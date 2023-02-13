@@ -5,17 +5,12 @@ using UnityEngine.Events;
 
 public class Bin : MonoBehaviour
 {
-    private ProgressBar _progressBar;
+    [SerializeField] private ProgressBar _progressBar;
     
     private float _timer;
     private float _maxTime = 5f;
 
     public event UnityAction<float, float> ProgressChanged;
-
-    private void Start()
-    {
-        _progressBar = FindObjectOfType<ProgressBar>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {

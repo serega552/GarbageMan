@@ -8,12 +8,12 @@ public class AmountBullet : MonoBehaviour
 
     private void OnEnable()
     {
-        _akm.CountBullet += OnCountBulletChanged;
+        _akm.BulletChanged += OnCountBulletChanged;
     }
 
     private void OnDisable()
     {
-        _akm.CountBullet -= OnCountBulletChanged;
+        _akm.BulletChanged -= OnCountBulletChanged;
     }
 
     private void OnCountBulletChanged(int countBullet)
