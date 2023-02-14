@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Enemy))]
 public class EnemyControler : MonoBehaviour
 {
     [SerializeField] private GameObject _playerTemplate;
@@ -13,7 +15,11 @@ public class EnemyControler : MonoBehaviour
     private bool _isSoundCoroutineRunning = false;
     private Coroutine _soundCoroutine;
     private Coroutine _attackCoroutine;
-        
+    private int _followDistance = 5;
+    private WaitForSeconds _waitForSecondsAfterAttack = new WaitForSeconds(5f);
+    private WaitForSeconds _waitForSecondsBeforeAttack = new WaitForSeconds(0.2f);
+    private WaitForSeconds _waitForSecondsSound = new WaitForSeconds(10f);
+
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -45,12 +51,12 @@ public class EnemyControler : MonoBehaviour
             _isSoundCoroutineRunning = false;
         }
 
-        if (distance <= 5f && _isAttackCoroutineRunning == false)
+        if (distance <= _followDistance && _isAttackCoroutineRunning == false)
         {
             _attackCoroutine = StartCoroutine(Attack());
             _isAttackCoroutineRunning = true;
         }
-        else if (distance > 5 && _isAttackCoroutineRunning)
+        else if (distance > _followDistance && _isAttackCoroutineRunning)
         {
             StopCoroutine(_attackCoroutine);
             _isAttackCoroutineRunning = false;
@@ -61,9 +67,9 @@ public class EnemyControler : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return _waitForSecondsBeforeAttack;
             _player.TakeDamage(_enemy.Damage);
-            yield return new WaitForSeconds(5f);
+            yield return _waitForSecondsAfterAttack;
         }
     }
 
@@ -72,7 +78,7 @@ public class EnemyControler : MonoBehaviour
         while (true)
         {
             _enemy.AudioSourse.PlayOneShot(_enemy.FollowSound);
-            yield return new WaitForSeconds(10f);
+            yield return _waitForSecondsSound;
         }
     }
 }

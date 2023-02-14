@@ -232,6 +232,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1738904033}
     m_Modifications:
+    - target: {fileID: 4034297063239512557, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 157084917}
     - target: {fileID: 4962226662060294953, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
       propertyPath: m_Name
       value: bin1 (3)
@@ -1422,6 +1426,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152874507}
   m_CullTransparentMesh: 1
+--- !u!114 &157084917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4168819302631480638, guid: ff7748fb6927d424a9ed417655e2c718, type: 3}
+  m_PrefabInstance: {fileID: 1908655797}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57c53a719205524e9d7082cb8e4a93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &159720836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6764515198446370284, guid: 24ce9ad0a55e1a845a7fb53e2b76d1aa, type: 3}
@@ -3422,6 +3437,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1738904033}
     m_Modifications:
+    - target: {fileID: 4034297063239512557, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 157084917}
     - target: {fileID: 4962226662060294953, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
       propertyPath: m_Name
       value: bin1 (1)
@@ -7435,6 +7454,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1738904033}
     m_Modifications:
+    - target: {fileID: 4034297063239512557, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 157084917}
     - target: {fileID: 4962226662060294953, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
       propertyPath: m_Name
       value: bin1 (4)
@@ -8570,6 +8593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1610083113}
   - component: {fileID: 1610083112}
+  - component: {fileID: 1610083114}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -8593,6 +8617,7 @@ MonoBehaviour:
   _resetScreen: {fileID: 152874509}
   _winScreen: {fileID: 34771796}
   _player: {fileID: 1908655798}
+  _pause: {fileID: 1610083114}
   _firstPersonController: {fileID: 1908655799}
 --- !u!4 &1610083113
 Transform:
@@ -8609,6 +8634,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1610083114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610083111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c4bc99d5f12b243b7c098fc389b445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1618675712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4ca81fb866e7dd45ae7bba6230a49ce, type: 3}
@@ -8764,6 +8801,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1738904033}
     m_Modifications:
+    - target: {fileID: 4034297063239512557, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
+      propertyPath: _progressBar
+      value: 
+      objectReference: {fileID: 157084917}
     - target: {fileID: 4962226662060294953, guid: 3bda12ba09f9f9c4abe5bd67899d7fc1, type: 3}
       propertyPath: m_Name
       value: bin1

@@ -5,16 +5,11 @@ using UnityEngine.UI;
 
 public class ProgressBar : Bar
 {
-    private Bin[] _bins;
+    [SerializeField] private Bin[] _bins;
 
     private void Start()
     {
         Slider.gameObject.SetActive(false);
-    }
-
-    private void Awake()
-    {
-        _bins = Bin.FindObjectsOfType<Bin>();
     }
 
     private void OnEnable()

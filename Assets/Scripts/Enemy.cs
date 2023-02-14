@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private float _damage = 10f;
     private float _rangeFollow = 50;
     private float _timeBetweenAtack = 3;
+    private float _timeDestroingObject;
 
     public AudioSource AudioSourse { get; private set; }
 
@@ -43,6 +44,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         AudioSourse.PlayOneShot(_DieSound);
-        Destroy(gameObject, 0.7f);
+        Destroy(gameObject, _timeDestroingObject);
     }
 }

@@ -7,6 +7,8 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Game : MonoBehaviour
 {
+    private const string _mainScene = "SampleScene";
+
     [SerializeField] private StartButton _startScreen;
     [SerializeField] private ResetButton _resetScreen;
     [SerializeField] private WinScreen _winScreen;
@@ -50,7 +52,7 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _resetScreen.Close();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(_mainScene);
         StartGame();
     }
 

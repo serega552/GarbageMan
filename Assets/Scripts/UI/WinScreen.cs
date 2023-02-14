@@ -12,7 +12,7 @@ public class WinScreen : Screen
     }
     public override void Open()
     {
-        CanvasGroup.alpha = 0.4f;
+        CanvasGroup.alpha = 1;
         Button.interactable = true;
     }
 
